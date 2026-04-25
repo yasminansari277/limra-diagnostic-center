@@ -1,0 +1,120 @@
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfile = 
+ record {
+   address: text;
+   email: text;
+   name: text;
+   phone: text;
+ };
+type Time = int;
+type Service = 
+ record {
+   category: text;
+   description: text;
+   isActive: bool;
+   name: text;
+   preparation: text;
+   price: nat;
+ };
+type PregnancyTracker = 
+ record {
+   currentWeek: nat;
+   estimatedDueDate: Time;
+   lmpDate: Time;
+   weekDescription: text;
+ };
+type Patient = 
+ record {
+   address: text;
+   email: text;
+   id: principal;
+   medicalHistory: text;
+   name: text;
+   phone: text;
+ };
+type Doctor = 
+ record {
+   experience: nat;
+   isActive: bool;
+   isPlaceholder: bool;
+   name: text;
+   qualifications: text;
+   specialization: text;
+   timingEnd: text;
+   timingStart: text;
+ };
+type AppointmentStatus = 
+ variant {
+   approved;
+   cancelled;
+   pending;
+   rescheduled;
+ };
+type Appointment = 
+ record {
+   adminNote: text;
+   createdAt: Time;
+   doctorId: text;
+   id: nat;
+   patientId: principal;
+   requestedDate: text;
+   requestedTimeSlot: text;
+   serviceId: text;
+   status: AppointmentStatus;
+ };
+type AdminDashboardStats = 
+ record {
+   doctorsCount: nat;
+   todaysAppointments: nat;
+   totalPatients: nat;
+   totalRevenue: nat;
+ };
+type AdminActivityLog = 
+ record {
+   action: text;
+   performedBy: principal;
+   timestamp: Time;
+ };
+service : {
+  _initializeAccessControl: () -> ();
+  approveAppointment: (appointmentId: nat, note: text) -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  cancelAppointment: (appointmentId: nat, note: text) -> ();
+  createDoctor: (doctor: Doctor) -> ();
+  createPatient: (patient: Patient) -> ();
+  createService: ("service": Service) -> ();
+  getAdminActivityLog: () -> (vec AdminActivityLog) query;
+  getAdminDashboardStats: () -> (AdminDashboardStats) query;
+  getAllAppointments: () -> (vec Appointment) query;
+  getAllDoctors: () -> (vec Doctor) query;
+  getAllPatients: () -> (vec Patient) query;
+  getAllServices: () -> (vec Service) query;
+  getAppointmentsByStatus: (status: AppointmentStatus) ->
+   (vec Appointment) query;
+  getCallerUserProfile: () -> (opt UserProfile) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getDoctor: (name: text) -> (Doctor) query;
+  getPatient: (patientId: principal) -> (opt Patient) query;
+  getPatientAppointments: (patientId: principal) -> (vec Appointment) query;
+  getPregnancyTracker: (patientId: principal) -> (opt PregnancyTracker) query;
+  getService: (name: text) -> (Service) query;
+  getUserProfile: (user: principal) -> (opt UserProfile) query;
+  initializeSystem: () -> ();
+  isCallerAdmin: () -> (bool) query;
+  rescheduleAppointment: (appointmentId: nat, newDate: text, newTimeSlot:
+   text, note: text) -> ();
+  saveCallerUserProfile: (profile: UserProfile) -> ();
+  setPregnancyTracker: (patientId: principal, lmpDate: Time, weekDesc:
+   text) -> ();
+  submitAppointmentRequest: (doctorId: text, serviceId: text, requestedDate:
+   text, requestedTimeSlot: text, patientName: text, patientPhone: text,
+   patientAddress: text) -> (nat);
+  updateDoctor: (name: text, updatedDoctor: Doctor) -> ();
+  updatePatient: (patientId: principal, updatedPatient: Patient) -> ();
+  updateService: (name: text, updatedService: Service) -> ();
+}

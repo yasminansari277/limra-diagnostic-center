@@ -1,0 +1,82 @@
+import type { Principal } from "@icp-sdk/core/principal";
+
+export interface Doctor {
+  name: string;
+  qualifications: string;
+  experience: bigint;
+  specialization: string;
+  timingStart: string;
+  timingEnd: string;
+  isActive: boolean;
+  isPlaceholder: boolean;
+}
+
+export interface Service {
+  name: string;
+  category: string;
+  description: string;
+  preparation: string;
+  price: bigint;
+  isActive: boolean;
+}
+
+export interface Patient {
+  id: Principal;
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+  medicalHistory: string;
+}
+
+// Candid variant serialized by bindgen as a string tag
+export type AppointmentStatusVariant = string;
+
+export interface Appointment {
+  id: bigint;
+  patientId: Principal;
+  doctorId: string;
+  serviceId: string;
+  requestedDate: string;
+  requestedTimeSlot: string;
+  status: AppointmentStatusVariant;
+  adminNote: string;
+  createdAt: bigint;
+}
+
+export interface AdminActivityLog {
+  action: string;
+  performedBy: Principal;
+  timestamp: bigint;
+}
+
+export interface PregnancyTracker {
+  lmpDate: bigint;
+  currentWeek: bigint;
+  estimatedDueDate: bigint;
+  weekDescription: string;
+}
+
+export interface AdminDashboardStats {
+  totalPatients: bigint;
+  todaysAppointments: bigint;
+  totalRevenue: bigint;
+  doctorsCount: bigint;
+}
+
+export interface UserProfile {
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+}
+
+// Enum-like constants for appointment status matching Motoko variant tags
+export const AppointmentStatus = {
+  pending: "pending",
+  approved: "approved",
+  cancelled: "cancelled",
+  rescheduled: "rescheduled",
+} as const;
+
+export type AppointmentStatusKey = keyof typeof AppointmentStatus;

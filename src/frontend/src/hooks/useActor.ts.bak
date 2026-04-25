@@ -1,0 +1,91 @@
+import { useActor as useCoreActor } from "@caffeineai/core-infrastructure";
+import type { Principal } from "@icp-sdk/core/principal";
+import { createActor } from "../backend";
+import type {
+  AdminActivityLog,
+  AdminDashboardStats,
+  Appointment,
+  AppointmentStatusVariant,
+  Doctor,
+  Patient,
+  PregnancyTracker,
+  Service,
+  UserProfile,
+} from "../types";
+
+// Typed backend actor interface matching the Motoko canister methods
+export interface BackendActor {
+  // Auth
+  isCallerAdmin(): Promise<boolean>;
+
+  // UserProfile
+  getCallerUserProfile(): Promise<UserProfile | null>;
+  saveCallerUserProfile(profile: UserProfile): Promise<void>;
+  getUserProfile(user: Principal): Promise<UserProfile | null>;
+
+  // System
+  initializeSystem(): Promise<void>;
+
+  // Doctors
+  getAllDoctors(): Promise<Doctor[]>;
+  getDoctor(name: string): Promise<Doctor>;
+  createDoctor(doctor: Doctor): Promise<void>;
+  updateDoctor(name: string, updatedDoctor: Doctor): Promise<void>;
+
+  // Services
+  getAllServices(): Promise<Service[]>;
+  getService(name: string): Promise<Service>;
+  createService(service: Service): Promise<void>;
+  updateService(name: string, updatedService: Service): Promise<void>;
+
+  // Patients
+  createPatient(patient: Patient): Promise<void>;
+  updatePatient(patientId: Principal, updatedPatient: Patient): Promise<void>;
+  getAllPatients(): Promise<Patient[]>;
+  getPatient(patientId: Principal): Promise<Patient | null>;
+
+  // Appointments
+  submitAppointmentRequest(
+    doctorId: string,
+    serviceId: string,
+    requestedDate: string,
+    requestedTimeSlot: string,
+    patientName: string,
+    patientPhone: string,
+    patientAddress: string,
+  ): Promise<bigint>;
+  approveAppointment(appointmentId: bigint, note: string): Promise<void>;
+  cancelAppointment(appointmentId: bigint, note: string): Promise<void>;
+  rescheduleAppointment(
+    appointmentId: bigint,
+    newDate: string,
+    newTimeSlot: string,
+    note: string,
+  ): Promise<void>;
+  getPatientAppointments(patientId: Principal): Promise<Appointment[]>;
+  getAllAppointments(): Promise<Appointment[]>;
+  getAppointmentsByStatus(
+    status: AppointmentStatusVariant,
+  ): Promise<Appointment[]>;
+
+  // Pregnancy Tracker
+  setPregnancyTracker(
+    patientId: Principal,
+    lmpDate: bigint,
+    weekDesc: string,
+  ): Promise<void>;
+  getPregnancyTracker(patientId: Principal): Promise<PregnancyTracker | null>;
+
+  // Admin
+  getAdminDashboardStats(): Promise<AdminDashboardStats>;
+  getAdminActivityLog(): Promise<AdminActivityLog[]>;
+}
+
+export function useActor(): {
+  actor: BackendActor | null;
+  isFetching: boolean;
+} {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result = useCoreActor(createActor as any);
+  return result as { actor: BackendActor | null; isFetching: boolean };
+}

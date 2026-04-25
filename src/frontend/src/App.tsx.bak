@@ -1,0 +1,126 @@
+import { Toaster } from "@/components/ui/sonner";
+import {
+  Outlet,
+  RouterProvider,
+  createRootRoute,
+  createRoute,
+  createRouter,
+} from "@tanstack/react-router";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import About from "./pages/About";
+import AdminDashboard from "./pages/AdminDashboard";
+import BookAppointment from "./pages/BookAppointment";
+import Contact from "./pages/Contact";
+import Doctors from "./pages/Doctors";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import PatientDashboard from "./pages/PatientDashboard";
+import Services from "./pages/Services";
+import Signup from "./pages/Signup";
+
+function Layout() {
+  return (
+    <div className="min-h-screen flex flex-col bg-background">
+      <Header />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+const rootRoute = createRootRoute({
+  component: Layout,
+});
+
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/",
+  component: Home,
+});
+
+const aboutRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/about",
+  component: About,
+});
+
+const doctorsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/doctors",
+  component: Doctors,
+});
+
+const servicesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services",
+  component: Services,
+});
+
+const bookAppointmentRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/book-appointment",
+  component: BookAppointment,
+});
+
+const contactRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/contact",
+  component: Contact,
+});
+
+const patientDashboardRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/patient-dashboard",
+  component: PatientDashboard,
+});
+
+const adminDashboardRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/admin-dashboard",
+  component: AdminDashboard,
+});
+
+const loginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/login",
+  component: Login,
+});
+
+const signupRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/signup",
+  component: Signup,
+});
+
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  aboutRoute,
+  doctorsRoute,
+  servicesRoute,
+  bookAppointmentRoute,
+  contactRoute,
+  patientDashboardRoute,
+  adminDashboardRoute,
+  loginRoute,
+  signupRoute,
+]);
+
+const router = createRouter({ routeTree });
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
+
+export default function App() {
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Toaster richColors position="top-right" />
+    </>
+  );
+}

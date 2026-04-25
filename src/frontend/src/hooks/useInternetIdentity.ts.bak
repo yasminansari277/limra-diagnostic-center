@@ -1,0 +1,8 @@
+// Re-export useInternetIdentity and related types from the core-infrastructure package.
+// All components should import from this file, not directly from the package.
+export {
+  useInternetIdentity,
+  InternetIdentityProvider,
+  type InternetIdentityContext,
+  type Status,
+} from "@caffeineai/core-infrastructure";
