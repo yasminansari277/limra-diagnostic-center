@@ -47,7 +47,7 @@ const whyChooseUs = [
     desc: "Quality diagnostic services at competitive, transparent pricing.",
   },
   {
-    icon: <FileText className="w-6 h-6" />,
+    icon: <Users className="w-6 h-6" />,
     title: "Trusted by Thousands",
     desc: "Serving pregnant women, general patients, and referring doctors.",
   },
@@ -131,8 +131,8 @@ export default function Home() {
               </h1>
               <p className="text-white/80 text-lg md:text-xl mb-8 leading-relaxed max-w-lg">
                 State-of-the-art 4D/5D ultrasound technology with experienced
-                radiologists. Serving pregnant women, general patients, and
-                referring doctors in Pune.
+                radiologists. We provide pregnancy, general, and Doppler
+                sonography for women, men, and referring physicians in Pune.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/book-appointment">
@@ -190,18 +190,17 @@ export default function Home() {
               </Badge>
               <h2 className="section-title mb-4">Limra Diagnostic Center</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Limra Diagnostic Center is a premier sonography and diagnostic
-                facility located in Pune, Maharashtra. Established with a vision
-                to provide accurate, affordable, and accessible diagnostic
-                services, we have been serving the community with dedication and
-                excellence.
+                Limra Diagnostic Center is a premier sonography facility in
+                Pune, Maharashtra. Established to provide accurate, affordable,
+                and accessible imaging care, we support patients with dependable
+                diagnostic services across the region.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Our center is equipped with the latest 4D/5D ultrasound
-                technology and staffed by experienced radiologists who are
-                committed to delivering precise diagnostic reports. We
-                specialize in pregnancy sonography, general ultrasound, and
-                Doppler studies.
+                systems and staffed by experienced radiologists who deliver
+                precise, clinically useful reports. We offer pregnancy scans,
+                general sonography, and Doppler studies for abdominal, breast,
+                thyroid, renal, and fetal care.
               </p>
               <Link to="/about">
                 <Button

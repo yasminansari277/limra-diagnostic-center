@@ -7,15 +7,15 @@ import { useInternetIdentity } from "../hooks/useInternetIdentity";
 const features = [
   {
     icon: <ShieldCheck className="w-5 h-5" />,
-    text: "Biometric / Passkey — no passwords to forget",
+    text: "Secure patient access to your sonography records and appointments",
   },
   {
     icon: <Lock className="w-5 h-5" />,
-    text: "Encrypted & secured by Internet Identity",
+    text: "Protected login for your personal health and diagnostic information",
   },
   {
     icon: <CheckCircle className="w-5 h-5" />,
-    text: "View appointments & reports after login",
+    text: "Quick access to appointment status, scan results, and clinic notes",
   },
 ];
 
@@ -54,8 +54,8 @@ export default function Login() {
             Welcome Back
           </h2>
           <p className="text-muted-foreground text-sm mb-8 leading-relaxed">
-            Sign in with Internet Identity — your biometric or passkey is your
-            password. No username or password needed.
+            Sign in to view your Limra Sonography appointments, scan reports,
+            and clinic updates in a secure patient area.
           </p>
 
           {/* Internet Identity Button */}
@@ -75,7 +75,7 @@ export default function Login() {
           {/* What is Internet Identity */}
           <div className="mt-6 p-4 bg-secondary/50 rounded-xl border border-border text-left">
             <p className="text-xs font-semibold text-foreground mb-3 uppercase tracking-wide">
-              Why Internet Identity?
+              Why secure login?
             </p>
             <ul className="space-y-2">
               {features.map((f) => (

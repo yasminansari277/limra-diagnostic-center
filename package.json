@@ -1,19 +1,17 @@
 {
-  "name": "@caffeine/template-app",
-  "type": "module",
-  "engines": {
-    "node": ">=16.0.0",
-    "pnpm": ">=7.0.0",
-    "npm": "please use pnpm"
-  },
+  "name": "limra-diagnostic-center",
+  "version": "1.0.0",
+  "description": "Limra Diagnostic Center - Frontend and Admin Dashboard",
   "scripts": {
-    "build": "pnpm -r --if-present run build",
-    "typecheck": "pnpm -r --if-present run typecheck",
-    "check": "pnpm -r --if-present run check",
-    "fix": "pnpm -r --if-present run fix",
-    "bindgen": "caffeine-bindgen --did-file ./src/backend/dist/backend.did --out-dir ./src/frontend/src --actor-interface-file --force"
+    "install-client": "cd client && npm install",
+    "install-admin": "cd admin && npm install",
+    "install-all": "npm run install-client && npm run install-admin",
+    "start-client": "cd client && npm start",
+    "start-admin": "cd admin && npm start",
+    "build-client": "cd client && npm run build",
+    "build-admin": "cd admin && npm run build"
   },
-  "devDependencies": {
-    "sharp": "^0.34.4"
-  }
+  "keywords": ["react", "diagnostic", "center"],
+  "author": "",
+  "license": "ISC"
 }
